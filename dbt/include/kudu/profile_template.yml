@@ -3,7 +3,6 @@ fixed:
 prompts:
   host:
     hint: 'hostname for the Impala instance'
-    default: impala-kudu-0.bi.metro-markets.org
   port:
     default: 21050
     type: 'int'
