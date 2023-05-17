@@ -1,0 +1,28 @@
+fixed:
+  type: kudu
+prompts:
+  host:
+    hint: 'hostname for the Impala instance'
+    default: impala-kudu-0.bi.metro-markets.org
+  port:
+    default: 21050
+    type: 'int'
+  auth_type:
+    hint: 'LDAP'
+    default: LDAP
+  use_http_transport:
+    hint: 'false'
+    default: false
+  use_ssl:
+    hint: 'false'
+    default: false
+  username:
+    hint: 'LDAP username'
+    default: "{{ env_var('IMPALA_USER') }}"
+  password:
+    hint: 'LDAP password'
+    hide_input: true
+    default: "{{ env_var('IMPALA_PASSWORD') }}"
+  schema:
+    hint: 'default schema that dbt will build objects in'
+

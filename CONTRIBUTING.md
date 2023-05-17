@@ -76,19 +76,19 @@ You may run a specific test or group of tests using `pytest` directly. Activate 
 ```sh
 # Note: replace $strings with valid names
 
-# run all impala functional tests in a directory
+# run all kudu functional tests in a directory
 python -m pytest tests/functional/$test_directory --profile dwx_endpoint
 python -m pytest tests/functional/adapter/test_basic.py --profile dwx_endpoint
 
-# run all impala functional tests in a module
+# run all kudu functional tests in a module
 python -m pytest --profile dwx_endpoint tests/functional/$test_dir_and_filename.py
 python -m pytest --profile dwx_endpoint tests/functional/adapter/test_basic.py
 
-# run all impala functional tests in a class
+# run all kudu functional tests in a class
 python -m pytest --profile dwx_endpoint tests/functional/$test_dir_and_filename.py::$test_class_name
 python -m pytest --profile dwx_endpoint tests/functional/adapter/test_basic.py::TestSimpleMaterializationsImpala
 
-# run a specific impala functional test
+# run a specific kudu functional test
 python -m pytest --profile dwx_endpoint tests/functional/$test_dir_and_filename.py::$test_class_name::$test__method_name
 python -m pytest --profile dwx_endpoint tests/functional/adapter/test_basic.py::TestSimpleMaterializationsImpala::test_base
 ```

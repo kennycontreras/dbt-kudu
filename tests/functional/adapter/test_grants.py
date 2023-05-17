@@ -73,7 +73,7 @@ class TestIncrementalGrantsImpala(BaseIncrementalGrants):
         (results, log_output) = run_dbt_and_capture(["--debug", "run"])
         assert len(results) == 1
         assert "revoke " not in log_output
-        # doesn't work in impala as the regular command is 'show grant' and not 'show grants'
+        # doesn't work in kudu as the regular command is 'show grant' and not 'show grants'
         # assert "grant " not in log_output  # with space to disambiguate from 'show grants'
         self.assert_expected_grants_match_actual(project, "my_incremental_model", expected)
 

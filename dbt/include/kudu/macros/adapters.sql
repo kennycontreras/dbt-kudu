@@ -68,6 +68,14 @@
   {%- endif %}
 {%- endmacro -%}
 
+{% macro ct_option_primary_key(label, required=false) %}
+  {%- set primaryKey = config.get('primary_key', validator=validation[basestring]) -%}
+
+  {%- if primaryKey is not none %}
+    {{label}} {{primaryKey}}
+  {%- endif %}
+{%- endmacro -%}
+
 {% macro ct_option_stored_as(label, required=false) %}
   {%- set storedAs = config.get('stored_as', validator=validation[basestring]) -%}
 
@@ -161,6 +169,7 @@
     {{ ct_option_row_format(label="row format") }}
     {{ ct_option_with_serdeproperties(label="with serdeproperties") }}
     {% if is_iceberg == true -%} STORED BY ICEBERG {%- endif %}
+    {{ ct_option_primary_key(label="PRIMARY KEY") }}
     {{ ct_option_stored_as(label="stored as") }}
     {{ ct_option_location_clause(label="location") }} 
     {{ ct_option_cached_in(label="cached in") }}

@@ -17,7 +17,7 @@ from dataclasses import dataclass
 from dbt.adapters.base.relation import BaseRelation, Policy
 from dbt.exceptions import RuntimeException
 
-import dbt.adapters.impala.cloudera_tracking as tracker
+import dbt.adapters.kudu.cloudera_tracking as tracker
 
 @dataclass
 class ImpalaQuotePolicy(Policy):

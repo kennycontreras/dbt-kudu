@@ -407,7 +407,7 @@ class TestHash(BaseHash):
             "test_hash.sql": self.interpolate_macro_namespace(models__test_hash_sql, "hash"),
         }
 
-# in impala cast of boolean to string return 1 or 0
+# in kudu cast of boolean to string return 1 or 0
 # (c.f. https://impala.apache.org/docs/build/html/topics/impala_boolean.html#boolean)
 models__test_cast_bool_to_text_sql = """
 with util_data as (

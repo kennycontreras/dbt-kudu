@@ -25,7 +25,7 @@ with open(os.path.join(this_directory, 'README.md'), 'r', encoding='utf8') as f:
 # get this package's version from dbt/adapters/<name>/__version__.py
 def _get_plugin_version_dict():
     _version_path = os.path.join(
-        this_directory, 'dbt', 'adapters', 'impala', '__version__.py'
+        this_directory, 'dbt', 'adapters', 'kudu', '__version__.py'
     )
     _semver = r'''(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)'''
     _pre = r'''((?P<prekind>a|b|rc)(?P<pre>\d+))?'''
@@ -44,24 +44,24 @@ def _get_dbt_core_version():
     pre = (parts["prekind"]+"1" if parts["prekind"] else "")
     return f"{minor}{pre}"
 
-package_name = "dbt-impala"
+package_name = "dbt-kudu"
 # make sure this always matches dbt/adapters/dbt_impala/__version__.py
 package_version = "1.3.1"
-description = """The Impala adapter plugin for dbt"""
+description = """The Impala Kudu adapter plugin for dbt"""
 
 dbt_core_version = _get_dbt_core_version()
 
 setup(
     name=package_name,
     version=package_version,
-    description="Impala adapter for DBT",
+    description="Impala Kudu adapter for DBT",
     long_description=long_description,
     long_description_content_type='text/markdown',
     author="Cloudera",
     author_email="innovation-feedback@cloudera.com",
     url="https://github.com/cloudera/dbt-impala",
     packages=find_namespace_packages(include=['dbt', 'dbt.*']),
-    data_files=[('', ['dbt/adapters/impala/.env'])],
+    data_files=[('', ['dbt/adapters/kudu/.env'])],
     include_package_data=True,
     install_requires=[
         'dbt-core~={}'.format(dbt_core_version),

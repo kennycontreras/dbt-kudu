@@ -12,8 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: dbt_impala
-version: 1.0
-config-version: 2
+from dbt.adapters.kudu.connections import ImpalaConnectionManager
+from dbt.adapters.kudu.connections import ImpalaCredentials
+from dbt.adapters.kudu.column import ImpalaColumn
+from dbt.adapters.kudu.relation import ImpalaRelation
+from dbt.adapters.kudu.impl import ImpalaAdapter
 
-macro-paths: ["macros"]
+from dbt.adapters.base import AdapterPlugin
+from dbt.include import kudu
+
+
+Plugin = AdapterPlugin(
+    adapter=ImpalaAdapter,
+    credentials=ImpalaCredentials,
+    include_path=kudu.PACKAGE_PATH)

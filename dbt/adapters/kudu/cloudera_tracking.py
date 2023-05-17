@@ -76,7 +76,7 @@ def populate_platform_info(cred: Credentials, ver):
     platform_info[
         "dbt_version"
     ] = dbt.version.get_installed_version().to_version_string(skip_matcher=True)
-    # dbt adapter info e.g. impala-1.2.0
+    # dbt adapter info e.g. kudu-1.2.0
     platform_info["dbt_adapter_type"] = f"{cred.type}"
     platform_info["dbt_adapter_version"] = f"{ver.version}"
 

@@ -36,12 +36,12 @@ from impala.error import DatabaseError
 from impala.error import HttpError
 from impala.error import HiveServer2Error
 
-import dbt.adapters.impala.__version__ as ver
-import dbt.adapters.impala.cloudera_tracking as tracker
+import dbt.adapters.kudu.__version__ as ver
+import dbt.adapters.kudu.cloudera_tracking as tracker
 
 import json
 
-from dbt.adapters.impala.__version__ import version as ADAPTER_VERSION
+from dbt.adapters.kudu.__version__ import version as ADAPTER_VERSION
 
 DEFAULT_IMPALA_HOST = "localhost"
 DEFAULT_IMPALA_PORT = 21050
@@ -75,7 +75,7 @@ class ImpalaCredentials(Credentials):
         return data
 
     def __post_init__(self):
-        # impala classifies database and schema as the same thing
+        # kudu classifies database and schema as the same thing
         if self.database is not None and self.database != self.schema:
             raise dbt.exceptions.RuntimeException(
                 f"    schema: {self.schema} \n"
@@ -96,7 +96,7 @@ class ImpalaCredentials(Credentials):
 
     @property
     def type(self):
-        return "impala"
+        return "kudu"
 
     def _connection_keys(self):
         # return an iterator of keys to pretty-print in 'dbt debug'.
@@ -151,7 +151,7 @@ class ImpalaConnectionWrapper(object):
         return self._cursor.description
 
 class ImpalaConnectionManager(SQLConnectionManager):
-    TYPE = "impala"
+    TYPE = "kudu"
 
     impala_version = None
 
@@ -194,7 +194,7 @@ class ImpalaConnectionManager(SQLConnectionManager):
             if (
                     credentials.auth_type == "LDAP" or credentials.auth_type == "ldap"
             ):  # ldap connection
-                custom_user_agent = 'dbt/cloudera-impala-v' + ADAPTER_VERSION
+                custom_user_agent = 'dbt/cloudera-kudu-v' + ADAPTER_VERSION
                 logger.debug("Using user agent: {}".format(custom_user_agent))
                 handle = impala.dbapi.connect(
                     host=credentials.host,
@@ -316,8 +316,8 @@ class ImpalaConnectionManager(SQLConnectionManager):
 
             tracker.populate_warehouse_info({ "version": ImpalaConnectionManager.impala_version, "build": res[0][0] })
         except Exception as ex:
-            # we couldn't get the impala warehouse version
-            logger.debug(f"Cannot get impala version. Error: {ex}")
+            # we couldn't get the kudu warehouse version
+            logger.debug(f"Cannot get kudu version. Error: {ex}")
             ImpalaConnectionManager.impala_version = "NA"
 
             tracker.populate_warehouse_info({ "version": ImpalaConnectionManager.impala_version, "build": "NA" })

@@ -31,7 +31,7 @@ def dbt_profile_target(request):
 
 def cdh_target():
 	return {
-		'type': 'impala',
+		'type': 'kudu',
 		'threads': 4,
 		'schema': os.getenv('IMPALA_SCHEMA') or 'dbt_adapter_test',
 		'host': os.getenv('IMPALA_HOST'),
@@ -43,7 +43,7 @@ def cdh_target():
 
 def dwx_target():
 	return {
-		'type': 'impala',
+		'type': 'kudu',
 		'threads': 4,
 		'auth_type': 'ldap',
 		'use_http_transport': True,
@@ -58,7 +58,7 @@ def dwx_target():
 
 def local_target():
 	return {
-		'type': 'impala',
+		'type': 'kudu',
 		'threads': 1,
 		'host': 'localhost',
 		'port': 21050,

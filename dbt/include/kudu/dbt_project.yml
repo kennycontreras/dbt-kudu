@@ -12,13 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-default:
-  outputs:
-    dev:
-      type: impala
-      # Add sample credentials here, like:
-      # host: <host>
-      # port: <port_num>
-      # username: <user>
-      # password: <pass>
-  target: dev
+name: dbt_kudu
+version: 1.0
+config-version: 2
+
+macro-paths: ["macros"]

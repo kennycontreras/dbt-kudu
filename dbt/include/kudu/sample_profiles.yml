@@ -12,17 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dbt.adapters.impala.connections import ImpalaConnectionManager
-from dbt.adapters.impala.connections import ImpalaCredentials
-from dbt.adapters.impala.column import ImpalaColumn
-from dbt.adapters.impala.relation import ImpalaRelation
-from dbt.adapters.impala.impl import ImpalaAdapter
-
-from dbt.adapters.base import AdapterPlugin
-from dbt.include import impala
-
-
-Plugin = AdapterPlugin(
-    adapter=ImpalaAdapter,
-    credentials=ImpalaCredentials,
-    include_path=impala.PACKAGE_PATH)
+default:
+  outputs:
+    dev:
+      type: kudu
+      # Add sample credentials here, like:
+      # host: <host>
+      # port: <port_num>
+      # username: <user>
+      # password: <pass>
+  target: dev

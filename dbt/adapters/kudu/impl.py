@@ -28,10 +28,10 @@ from dbt.events import AdapterLogger
 from dbt.exceptions import warn_or_error
 from dbt.utils import executor
 
-import dbt.adapters.impala.cloudera_tracking as tracker
-from dbt.adapters.impala import ImpalaConnectionManager
-from dbt.adapters.impala.column import ImpalaColumn
-from dbt.adapters.impala.relation import ImpalaRelation
+import dbt.adapters.kudu.cloudera_tracking as tracker
+from dbt.adapters.kudu import ImpalaConnectionManager
+from dbt.adapters.kudu.column import ImpalaColumn
+from dbt.adapters.kudu.relation import ImpalaRelation
 
 logger = AdapterLogger("Impala")
 
@@ -162,7 +162,7 @@ class ImpalaAdapter(SQLAdapter):
                 rows: List[agate.Row] = super().get_columns_in_relation(relation)
                 columns = self.parse_describe_extended(relation, rows)
             except dbt.exceptions.RuntimeException as e:
-                # impala would throw error when table doesn't exist
+                # kudu would throw error when table doesn't exist
                 errmsg = getattr(e, "msg", "")
                 if "Table or view not found" in errmsg or "NoSuchTableException" in errmsg or "Could not resolve path" in errmsg:
                     return []
@@ -177,7 +177,7 @@ class ImpalaAdapter(SQLAdapter):
             raw_rows: List[agate.Row]
     ) -> List[ImpalaColumn]:
 
-        # TODO: this method is largely from dbt-spark, sample test with impala works (test_dbt_base: base)
+        # TODO: this method is largely from dbt-spark, sample test with kudu works (test_dbt_base: base)
         # need deeper testing 
 
         # Convert the Row to a dict
@@ -225,7 +225,7 @@ class ImpalaAdapter(SQLAdapter):
             self, relation: ImpalaRelation
     ) -> List[ImpalaColumn]:
 
-        # TODO: this method is largely from dbt-spark, sample test with impala works (test_dbt_base: base)
+        # TODO: this method is largely from dbt-spark, sample test with kudu works (test_dbt_base: base)
         # need deeper testing
 
         owner_match = re.findall(
@@ -316,7 +316,7 @@ class ImpalaAdapter(SQLAdapter):
             yield as_dict
  
     def timestamp_add_sql(self, add_to: str, number: int = 1, interval: str = "hour") -> str:
-        # We override this from base dbt adapter because impala doesn't need to escape interval 
+        # We override this from base dbt adapter because kudu doesn't need to escape interval
         # duration string like postgres/redshift.
         return f"{add_to} + interval {number} {interval}"
 
